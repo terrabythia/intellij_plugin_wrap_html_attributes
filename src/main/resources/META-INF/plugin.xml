@@ -1,0 +1,43 @@
+<idea-plugin>
+    <id>eu.sndr.wrap-lines-plugin.wrap_lines_plugin</id>
+    <name>Wrap HTML attributes on new lines</name>
+    <vendor email="intellij@sndr.eu" url="https://github.com/terrabythia/intellij_plugin_wrap_html_attributes">SNDR</vendor>
+
+    <description><![CDATA[
+
+        Put every attribute of a HTML tag on a new line.
+        <br><br>
+        This:
+        <br>
+        <br>
+        <pre>
+<code>&lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; class=&quot;form-control&quot;&gt;</code>
+        </pre>
+        Will become this:
+        <br>
+        <br>
+        <pre><code>&lt;input
+    type=&quot;text&quot;
+    id=&quot;name&quot;
+    name=&quot;name&quot;
+    class=&quot;form-control&quot;&gt;</code></pre>
+        <br
+        Using the (default) hot key [meta+shift+w].
+        <br>
+        See <em>preferences</em> &gt; <em>tools</em> &gt; <em>Wrap HTML Plugin</em> for setting the formatting to you preference.
+        ]]></description>
+
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable groupId="tools" displayName="Wrap Lines Plugin" id="preferences.WrapLinesConfigurable" instance="WrapLinesConfigurable" />
+    </extensions>
+
+    <actions>
+        <action id="WrapLinesAction.WrapLinesAction" class="WrapLinesAction" text="Wrap Lines"
+                description="Wrap lines on current selection or cursor position">
+            <add-to-group group-id="CodeMenu" anchor="after" relative-to-action="OptimizeImports" />
+            <keyboard-shortcut keymap="$default" first-keystroke="shift meta W" />
+        </action>
+    </actions>
+</idea-plugin>
