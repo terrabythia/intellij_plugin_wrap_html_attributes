@@ -29,3 +29,7 @@ intellij {
 patchPluginXml {
     changeNotes """"""
 }
+publishPlugin {
+    username intellijPublishUsername
+    password intellijPublishPassword
+}

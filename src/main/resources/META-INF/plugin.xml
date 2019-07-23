@@ -25,6 +25,7 @@
         Using the (default) hot key [meta+shift+w].
         <br>
         See <em>preferences</em> &gt; <em>tools</em> &gt; <em>Wrap HTML Plugin</em> for setting the formatting to you preference.
+
         ]]></description>
 
     <depends>com.intellij.modules.lang</depends>
