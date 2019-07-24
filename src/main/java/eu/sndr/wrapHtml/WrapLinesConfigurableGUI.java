@@ -1,3 +1,5 @@
+package eu.sndr.wrapHtml;
+
 import javax.swing.*;
 
 public class WrapLinesConfigurableGUI {

@@ -1,4 +1,4 @@
-package Utils;
+package eu.sndr.wrapHtml.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,8 +28,8 @@ public class HtmlAttributeWrapper {
 
         String result = text;
         boolean firstAttribute = true;
-        boolean firstAttributeOnNewLine = options.isFirstAttributeOnNewLine();
-        boolean textNodeOnNewLine = options.isTextNodeOnNewLine();
+        final boolean optionsFirstAttributeOnNewLine = options.isFirstAttributeOnNewLine();
+        final boolean optionsTextNodeOnNewLine = options.isTextNodeOnNewLine();
         while (matcher.find()) {
 
 //            String fullMatch = matcher.group(0);
@@ -42,7 +42,7 @@ public class HtmlAttributeWrapper {
             // else if is first attributes and in settings first attributes should be on new line
             // AND it's not the only attribute on the tag
             String prefix =
-                    (!firstAttribute || (firstAttributeOnNewLine && !closingTagMatch.equals(">")))
+                    (!firstAttribute || (optionsFirstAttributeOnNewLine && !closingTagMatch.equals(">")))
                             ?
                             "\n" + prependWhiteSpace +  "\t"
                             :
@@ -53,9 +53,8 @@ public class HtmlAttributeWrapper {
             // if match group 2 is a closing tag then parent attribute is closed, so set the 'is first attribute' flag to true
             firstAttribute = closingTagMatch.equals(">");
 
-            // TODO: if textNodeMatch is not empty and options.textNodeOnNewLine() is true
             // put the text Node on the new line
-            if (textNodeOnNewLine && !textNodeMatch.trim().isEmpty()) {
+            if (optionsTextNodeOnNewLine && !textNodeMatch.trim().isEmpty()) {
                 result = result.replaceFirst("\\s*" + Pattern.quote(textNodeMatch) + "\\s*", Matcher.quoteReplacement("\n" + textNodeMatch + "\n"));
             }
 

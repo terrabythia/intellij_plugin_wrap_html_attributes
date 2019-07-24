@@ -8,14 +8,10 @@
         Put every attribute of a HTML tag on a new line.
         <br><br>
         This:
-        <br>
-        <br>
         <pre>
 <code>&lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; class=&quot;form-control&quot;&gt;</code>
         </pre>
         Will become this:
-        <br>
-        <br>
         <pre><code>&lt;input
     type=&quot;text&quot;
     id=&quot;name&quot;
@@ -31,11 +27,11 @@
     <depends>com.intellij.modules.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable groupId="tools" displayName="Wrap Lines Plugin" id="preferences.WrapLinesConfigurable" instance="WrapLinesConfigurable" />
+        <applicationConfigurable groupId="tools" displayName="Wrap Attributes Plugin" id="preferences.WrapLinesConfigurable" instance="eu.sndr.wrapHtml.WrapLinesConfigurable" />
     </extensions>
 
     <actions>
-        <action id="WrapLinesAction.WrapLinesAction" class="WrapLinesAction" text="Wrap Lines"
+        <action id="WrapLinesAction.WrapLinesAction" class="eu.sndr.wrapHtml.WrapLinesAction" text="Wrap Attributes"
                 description="Wrap lines on current selection or cursor position">
             <add-to-group group-id="CodeMenu" anchor="after" relative-to-action="OptimizeImports" />
             <keyboard-shortcut keymap="$default" first-keystroke="shift meta W" />

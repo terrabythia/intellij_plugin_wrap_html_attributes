@@ -1,4 +1,6 @@
-import Utils.HtmlAttributeWrapperPreferenceStore;
+package eu.sndr.wrapHtml;
+
+import eu.sndr.wrapHtml.utils.HtmlAttributeWrapperPreferenceStore;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SearchableConfigurable;
 import org.jetbrains.annotations.Nls;

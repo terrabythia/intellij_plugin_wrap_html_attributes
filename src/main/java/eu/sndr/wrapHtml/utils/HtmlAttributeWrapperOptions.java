@@ -1,4 +1,4 @@
-package Utils;
+package eu.sndr.wrapHtml.utils;
 
 public class HtmlAttributeWrapperOptions {
 

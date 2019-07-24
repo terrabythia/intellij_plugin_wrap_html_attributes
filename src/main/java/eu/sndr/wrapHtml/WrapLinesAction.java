@@ -1,7 +1,8 @@
-import Utils.HtmlAttributeWrapper;
-import Utils.HtmlAttributeWrapperOptions;
-import Utils.HtmlAttributeWrapperPreferenceStore;
-import com.intellij.ide.util.PropertiesComponent;
+package eu.sndr.wrapHtml;
+
+import eu.sndr.wrapHtml.utils.HtmlAttributeWrapper;
+import eu.sndr.wrapHtml.utils.HtmlAttributeWrapperOptions;
+import eu.sndr.wrapHtml.utils.HtmlAttributeWrapperPreferenceStore;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -88,32 +89,37 @@ public class WrapLinesAction extends AnAction {
 
             final int startReplacementPos = start;
             final int endReplacementPos = end;
+            final PsiDocumentManager documentManager = PsiDocumentManager.getInstance(project);
+            final CodeStyleManager styleManager = CodeStyleManager.getInstance(project);
+            final PsiElement psiFile = e.getData(LangDataKeys.PSI_FILE);
             WriteCommandAction.runWriteCommandAction(project, () -> {
 
                 document.replaceString(startReplacementPos, endReplacementPos, result);
 
-                selectionModel.removeSelection();
+                if (selectionModel.hasSelection()) {
+                    selectionModel.setSelection(startReplacementPos, startReplacementPos + result.length());
+                }
+                else {
+                    editor.getCaretModel().moveToOffset((startReplacementPos + result.length()) - 1);
+                }
 
-                selectionModel.setSelection(startReplacementPos, startReplacementPos + result.length());
-
-                PsiDocumentManager documentManager =
-                        PsiDocumentManager.getInstance(project);
                 documentManager.commitDocument(document);
-
-                /* Format the generated code so that it will be pretty */
-                /* also, formatting in the style the user's preference is most likely the best formatting */
-                CodeStyleManager styleManager =
-                        CodeStyleManager.getInstance(project);
-                PsiElement psiFile = e.getData(LangDataKeys.PSI_FILE);
 
                 if (psiFile != null) {
 
-                    PsiElement psiElement = psiFile.findElementAt(startReplacementPos);
+                    /* Format the generated code so that it will be pretty */
+                    /* also, formatting in the style the user's preference is most likely the best formatting */
+                    final PsiElement psiElement = psiFile.findElementAt((startReplacementPos + result.length()) - 1);
                     if (psiElement != null) {
-                        styleManager.reformat(psiElement.getParent());
+                        PsiElement formatElement = psiElement.getParent();
+                        if (null != formatElement.getParent()) {
+                            formatElement = formatElement.getParent();
+                        }
+                        styleManager.reformat(formatElement);
                     }
 
                 }
+
             });
 
         }
